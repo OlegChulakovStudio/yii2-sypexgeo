@@ -1,0 +1,22 @@
+{
+    "name": "oleg-chulakov-studio/yii2-sypexgeo",
+    "description": "Sypexgeo Yii2 component",
+    "license": "BSD-3-Clause",
+    "type": "yii2-component",
+    "require": {
+        "php": "^7.1.0",
+        "yiisoft/yii2": "~2.0.18",
+        "ext-curl": "*"
+    },
+    "authors": [
+        {
+            "name": "Chulakov Studio",
+            "email": "hello@chulakov.ru"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "chulakov\\sypexgeo\\": "src/"
+        }
+    }
+}
