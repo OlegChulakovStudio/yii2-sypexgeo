@@ -21,9 +21,30 @@ use yii\base\Component;
 class Sypexgeo extends Component
 {
     /**
+     * Тип получаемых данных - Весь пакет
+     */
+    const DATA_TYPE_ALL = 'full';
+    /**
+     * Тип получаемых данных - Только информация о городе
+     */
+    const DATA_TYPE_CITY = 'city';
+    /**
+     * Тип получаемых данных - Только информация о регионе
+     */
+    const DATA_TYPE_REGION = 'region';
+    /**
+     * Тип получаемых данных - Только информация о стране
+     */
+    const DATA_TYPE_COUNTRY = 'country';
+    /**
+     * Тип получаемых данных - Только информация о стране по ISO
+     */
+    const DATA_TYPE_COUNTRY_BY_ISO = 'countryIso';
+
+    /**
      * @var string Файл .dat с сжатыми данными
      */
-    public $dataFile = '@console/runtime/sypexgeo/SxGeoCity.dat';
+    public $dataFile = '@app/runtime/sypexgeo/SxGeoCity.dat';
 
     /**
      * @var SxGeo
@@ -86,8 +107,8 @@ class Sypexgeo extends Component
      */
     public function getCity($ip = null)
     {
-        if ($data = $this->getData($ip, 'city')) {
-            return $data['city'];
+        if ($data = $this->getData($ip, static::DATA_TYPE_CITY)) {
+            return $data[static::DATA_TYPE_CITY];
         }
         throw new NotFoundGeoException("Не удалось определить город для IP: {$this->ip}");
     }
@@ -101,8 +122,8 @@ class Sypexgeo extends Component
      */
     public function getRegion($ip = null)
     {
-        if ($data = $this->getData($ip, 'region')) {
-            return $data['region'];
+        if ($data = $this->getData($ip, static::DATA_TYPE_REGION)) {
+            return $data[static::DATA_TYPE_REGION];
         }
         throw new NotFoundGeoException("Не удалось определить регион для IP: {$this->ip}");
     }
@@ -129,8 +150,8 @@ class Sypexgeo extends Component
      */
     public function getCountry($ip = null)
     {
-        if ($data = $this->getData($ip, 'country')) {
-            return $data['country'];
+        if ($data = $this->getData($ip, static::DATA_TYPE_COUNTRY)) {
+            return $data[static::DATA_TYPE_COUNTRY];
         }
         throw new NotFoundGeoException("Не удалось определить страну для IP: {$this->ip}");
     }
@@ -144,7 +165,7 @@ class Sypexgeo extends Component
      */
     public function getFull($ip = null)
     {
-        if ($data = $this->getData($ip, 'full')) {
+        if ($data = $this->getData($ip, static::DATA_TYPE_ALL)) {
             return $data;
         }
         throw new NotFoundGeoException("Не удалось определить данные для IP: {$this->ip}");
@@ -159,7 +180,7 @@ class Sypexgeo extends Component
      */
     public function getCountryIso($ip = null)
     {
-        if ($data = $this->getData($ip, 'countryIso')) {
+        if ($data = $this->getData($ip, static::DATA_TYPE_COUNTRY_BY_ISO)) {
             return $data;
         }
         throw new NotFoundGeoException("Не удалось определить страну для IP: {$this->ip}");
@@ -175,17 +196,12 @@ class Sypexgeo extends Component
     protected function getData($ip, $type)
     {
         $this->ip = $ip ?: $this->getUserIp();
-
-        switch ($type) {
-            case 'city':
-                $data = $this->getSxGeo()->getCity($this->ip);
-                break;
-            case 'countryIso':
-                $data = $this->getSxGeo()->getCountry($this->ip);
-                break;
-            default:
-                $data = $this->getSxGeo()->getCityFull($this->ip);
+        if ($type === static::DATA_TYPE_CITY) {
+            return $this->getSxGeo()->getCity($this->ip);
         }
-        return $data;
+        if ($type === static::DATA_TYPE_COUNTRY_BY_ISO) {
+            return $this->getSxGeo()->getCountry($this->ip);
+        }
+        return $this->getSxGeo()->getCityFull($this->ip);
     }
 }

@@ -34,7 +34,7 @@ country.tsv
         'importOptions' => [
             'sourceUrl' => 'https://sypexgeo.net/files',  // URL адрес сервера, на котором лежат .dat файлы
             'infoMode' => true,                           // Флаг необходимости вывода информационных сообщений в stdout
-            'dataDir' => '@console/runtime/sypexgeo',     // Относительный путь к каталогу, куда сохранять файлы .dat
+            'dataDir' => '@app/runtime/sypexgeo',     // Относительный путь к каталогу, куда сохранять файлы .dat
         ],
     ]
 ]
@@ -63,7 +63,7 @@ php yii sypexgeo/import
     ...
     'sypexgeo' => [
         'class' => 'chulakov\sypexgeo\Sypexgeo',
-        'dataFile' => '@console/runtime/sypexgeo/SxGeoCity.dat',     // Относительный путь к файлу .dat
+        'dataFile' => '@app/runtime/sypexgeo/SxGeoCity.dat',     // Относительный путь к файлу .dat
     ]
 ],
 ```
