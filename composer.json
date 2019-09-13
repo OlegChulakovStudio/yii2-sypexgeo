@@ -5,8 +5,9 @@
     "type": "yii2-component",
     "require": {
         "php": "^7.1.0",
+        "ext-curl": "*",
         "yiisoft/yii2": "~2.0.18",
-        "ext-curl": "*"
+        "sem-soft/yii2-helpers": "~2.0.1"
     },
     "authors": [
         {
