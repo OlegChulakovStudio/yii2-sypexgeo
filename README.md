@@ -40,6 +40,19 @@ country.tsv
 ]
 ```
 
++ Добавление переводов
+```
+'i18n' => [
+    'translations' => [
+        'ch/sypexgeo' => [
+            'class' => 'yii\i18n\PhpMessageSource',
+            'basePath' => '@vendor/oleg-chulakov-studio/yii2-sypexgeo/src/messages',
+            'sourceLanguage' => 'en-US',
+        ],
+    ],
+],
+```
+
 + Выполнить миграции командой
 ```
 php yii migrate --migrationPath=@vendor/oleg-chulakov-studio/yii2-sypexgeo/src/migrations
