@@ -6,6 +6,8 @@
  * @link http://chulakov.com/
  */
 
+namespace chulakov\sypexgeo\models;
+
 use yii\db\ActiveRecord;
 
 /**
